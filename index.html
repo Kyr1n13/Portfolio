@@ -1,0 +1,694 @@
+<!DOCTYPE html>
+<html lang="fr" data-theme="light">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Yacine Kerbadou</title>
+    <link href="https://fonts.googleapis.com/css2?family=DM+Mono:ital,wght@0,300;0,400;0,500;1,300&family=DM+Sans:ital,wght@0,300;0,400;0,500;1,300&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg:      #f5f3ef;
+            --bg2:     #edeae4;
+            --bg3:     #e4e0d8;
+            --surface: #ffffff;
+            --text:    #1a1916;
+            --muted:   #7a756c;
+            --border:  #d4cfc6;
+            --accent:  #2d5be3;
+            --tag-bg:  #edeae4;
+        }
+        [data-theme="dark"] {
+            --bg:      #111210;
+            --bg2:     #181714;
+            --bg3:     #1f1e1b;
+            --surface: #1f1e1b;
+            --text:    #e8e5de;
+            --muted:   #7a756c;
+            --border:  #2e2c28;
+            --accent:  #5b82f5;
+            --tag-bg:  #2a2825;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        html { scroll-behavior: smooth; }
+
+        body {
+            font-family: 'DM Sans', sans-serif;
+            background: var(--bg);
+            color: var(--text);
+            overflow-x: hidden;
+            transition: background 0.3s, color 0.3s;
+            font-weight: 300;
+        }
+
+        /* NAV */
+        nav {
+            position: fixed;
+            top: 0; left: 0; right: 0;
+            z-index: 500;
+            padding: 1.1rem 3rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background: var(--bg);
+            border-bottom: 1px solid var(--border);
+            transition: background 0.3s, border-color 0.3s;
+        }
+        .nav-logo {
+            font-family: 'DM Mono', monospace;
+            font-size: 0.8rem;
+            color: var(--muted);
+            letter-spacing: 0.08em;
+        }
+        .nav-right { display: flex; align-items: center; gap: 2.5rem; }
+        .nav-links { list-style: none; display: flex; gap: 2rem; }
+        .nav-links a {
+            font-size: 0.82rem;
+            letter-spacing: 0.04em;
+            color: var(--muted);
+            text-decoration: none;
+            transition: color 0.2s;
+        }
+        .nav-links a:hover { color: var(--text); }
+        .theme-btn {
+            background: none;
+            border: 1px solid var(--border);
+            border-radius: 3px;
+            padding: 0.35rem 0.7rem;
+            cursor: pointer;
+            font-family: 'DM Mono', monospace;
+            font-size: 0.68rem;
+            letter-spacing: 0.08em;
+            color: var(--muted);
+            transition: border-color 0.2s, color 0.2s;
+        }
+        .theme-btn:hover { border-color: var(--text); color: var(--text); }
+
+        /* HERO */
+        #hero {
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-end;
+            padding: 8rem 3rem 4rem;
+            border-bottom: 1px solid var(--border);
+        }
+        .hero-eyebrow {
+            font-family: 'DM Mono', monospace;
+            font-size: 0.7rem;
+            letter-spacing: 0.14em;
+            color: var(--muted);
+            text-transform: uppercase;
+            margin-bottom: 2rem;
+        }
+        .hero-name {
+            font-size: clamp(3.2rem, 8vw, 7rem);
+            font-weight: 300;
+            letter-spacing: -0.03em;
+            line-height: 0.93;
+            margin-bottom: 3rem;
+        }
+        .hero-name em { font-style: italic; color: var(--muted); }
+        .hero-bottom {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-end;
+            flex-wrap: wrap;
+            gap: 2rem;
+        }
+        .hero-desc {
+            font-size: 0.92rem;
+            color: var(--muted);
+            max-width: 380px;
+            line-height: 1.75;
+        }
+        .hero-links { display: flex; gap: 0.8rem; }
+        .btn {
+            font-family: 'DM Mono', monospace;
+            font-size: 0.7rem;
+            letter-spacing: 0.08em;
+            text-transform: uppercase;
+            text-decoration: none;
+            padding: 0.7rem 1.2rem;
+            border-radius: 3px;
+            transition: background 0.2s, color 0.2s, border-color 0.2s, opacity 0.2s;
+        }
+        .btn-dark { background: var(--text); color: var(--bg); border: 1px solid var(--text); }
+        .btn-dark:hover { opacity: 0.75; }
+        .btn-outline { background: transparent; color: var(--text); border: 1px solid var(--border); }
+        .btn-outline:hover { border-color: var(--text); }
+
+        /* SECTIONS */
+        section { padding: 5rem 3rem; border-bottom: 1px solid var(--border); }
+        .section-label {
+            font-family: 'DM Mono', monospace;
+            font-size: 0.68rem;
+            letter-spacing: 0.16em;
+            text-transform: uppercase;
+            color: var(--muted);
+            margin-bottom: 3rem;
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+        .section-label::after { content: ''; flex: 1; height: 1px; background: var(--border); }
+
+        /* ABOUT */
+        #about { background: var(--bg2); }
+        .about-layout {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 6rem;
+            align-items: start;
+        }
+        .about-text p, .about-side p {
+            font-size: 0.95rem;
+            color: var(--muted);
+            line-height: 1.85;
+            margin-bottom: 1.2rem;
+        }
+        .about-meta {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1.5rem;
+            margin-top: 2.5rem;
+            padding-top: 2.5rem;
+            border-top: 1px solid var(--border);
+        }
+        .meta-label {
+            font-family: 'DM Mono', monospace;
+            font-size: 0.65rem;
+            letter-spacing: 0.12em;
+            text-transform: uppercase;
+            color: var(--muted);
+            margin-bottom: 0.3rem;
+        }
+        .meta-val { font-size: 0.88rem; color: var(--text); }
+
+        /* PROJECTS */
+        .projects-list { display: flex; flex-direction: column; }
+        .project-row {
+            display: grid;
+            grid-template-columns: 260px 1fr;
+            gap: 3rem;
+            align-items: start;
+            padding: 2.5rem 0;
+            border-top: 1px solid var(--border);
+        }
+        .project-row:last-child { border-bottom: 1px solid var(--border); }
+        .project-img-wrap {
+            position: relative;
+            overflow: hidden;
+            border-radius: 3px;
+            background: var(--bg3);
+            aspect-ratio: 4/3;
+        }
+        .carousel-imgs { position: relative; width: 100%; height: 100%; }
+        .carousel-imgs img {
+            position: absolute; inset: 0;
+            width: 100%; height: 100%;
+            object-fit: cover;
+            opacity: 0;
+            transition: opacity 0.7s;
+        }
+        .carousel-imgs img.active { opacity: 1; }
+        .single-img { width: 100%; height: 100%; object-fit: cover; display: block; }
+        .carousel-dots {
+            position: absolute; bottom: 8px; left: 50%;
+            transform: translateX(-50%);
+            display: flex; gap: 5px; z-index: 10;
+        }
+        .carousel-dot {
+            width: 5px; height: 5px;
+            background: rgba(255,255,255,0.4);
+            border-radius: 50%; cursor: pointer;
+            transition: background 0.2s;
+        }
+        .carousel-dot.active { background: #fff; }
+        .project-info { padding-top: 0.2rem; }
+        .project-meta { display: flex; align-items: center; gap: 1rem; margin-bottom: 0.7rem; }
+        .project-year {
+            font-family: 'DM Mono', monospace;
+            font-size: 0.68rem;
+            color: var(--muted);
+        }
+        .project-type-badge {
+            font-family: 'DM Mono', monospace;
+            font-size: 0.65rem;
+            letter-spacing: 0.08em;
+            text-transform: uppercase;
+            color: var(--accent);
+        }
+        .project-name {
+            font-size: 1.3rem;
+            font-weight: 400;
+            letter-spacing: -0.01em;
+            margin-bottom: 0.7rem;
+        }
+        .project-desc {
+            font-size: 0.88rem;
+            color: var(--muted);
+            line-height: 1.75;
+            margin-bottom: 1.2rem;
+            max-width: 500px;
+        }
+        .project-tags { display: flex; flex-wrap: wrap; gap: 0.4rem; }
+        .tag {
+            font-family: 'DM Mono', monospace;
+            font-size: 0.63rem;
+            letter-spacing: 0.06em;
+            padding: 0.28rem 0.6rem;
+            background: var(--tag-bg);
+            border: 1px solid var(--border);
+            border-radius: 2px;
+            color: var(--muted);
+        }
+
+        /* SKILLS */
+        #skills { background: var(--bg2); }
+        .skills-table { display: grid; grid-template-columns: repeat(2, 1fr); gap: 0; }
+        .skill-row {
+            display: flex;
+            align-items: center;
+            gap: 1.5rem;
+            padding: 1.1rem 0;
+            border-bottom: 1px solid var(--border);
+        }
+        .skill-row:nth-child(odd) { padding-right: 3rem; border-right: 1px solid var(--border); }
+        .skill-row:nth-child(even) { padding-left: 3rem; }
+        .skill-name { font-size: 0.88rem; min-width: 90px; }
+        .skill-bar-wrap { flex: 1; height: 2px; background: var(--border); border-radius: 1px; overflow: hidden; }
+        .skill-fill {
+            height: 100%; background: var(--accent); border-radius: 1px;
+            transform: scaleX(0); transform-origin: left;
+            transition: transform 1s cubic-bezier(0.4,0,0.2,1);
+        }
+        .skill-fill.animated { transform: scaleX(1); }
+        .skill-pct {
+            font-family: 'DM Mono', monospace;
+            font-size: 0.65rem;
+            color: var(--muted);
+            min-width: 2.2rem;
+            text-align: right;
+        }
+
+        /* CONTACT */
+        #contact { padding: 6rem 3rem; }
+        .contact-layout {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 6rem;
+            align-items: start;
+        }
+        .contact-left h2 {
+            font-size: clamp(2rem, 4vw, 3.5rem);
+            font-weight: 300;
+            letter-spacing: -0.025em;
+            line-height: 1.1;
+            margin-bottom: 1.5rem;
+        }
+        .contact-left h2 em { font-style: italic; color: var(--muted); }
+        .contact-left p { font-size: 0.9rem; color: var(--muted); line-height: 1.75; }
+        .contact-links { display: flex; flex-direction: column; padding-top: 0.5rem; }
+        .contact-link {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            padding: 1rem 0;
+            border-bottom: 1px solid var(--border);
+            text-decoration: none;
+            color: var(--text);
+            font-size: 0.88rem;
+            transition: color 0.2s;
+        }
+        .contact-link:first-child { border-top: 1px solid var(--border); }
+        .contact-link:hover { color: var(--accent); }
+        .contact-link svg { width: 14px; height: 14px; fill: currentColor; flex-shrink: 0; opacity: 0.4; }
+        .cl-label {
+            font-family: 'DM Mono', monospace;
+            font-size: 0.63rem;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+            color: var(--muted);
+            min-width: 65px;
+        }
+        .cl-arrow { margin-left: auto; opacity: 0; transition: opacity 0.2s, transform 0.2s; font-size: 0.8rem; }
+        .contact-link:hover .cl-arrow { opacity: 1; transform: translateX(3px); }
+
+        /* FOOTER */
+        footer {
+            padding: 1.5rem 3rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .footer-text {
+            font-family: 'DM Mono', monospace;
+            font-size: 0.68rem;
+            letter-spacing: 0.06em;
+            color: var(--muted);
+        }
+        .footer-links { display: flex; gap: 1.5rem; }
+        .footer-links a {
+            font-family: 'DM Mono', monospace;
+            font-size: 0.68rem;
+            letter-spacing: 0.06em;
+            color: var(--muted);
+            text-decoration: none;
+            transition: color 0.2s;
+        }
+        .footer-links a:hover { color: var(--text); }
+
+        /* BACK TO TOP */
+        #back-to-top {
+            position: fixed; bottom: 1.5rem; right: 1.5rem;
+            width: 38px; height: 38px;
+            background: var(--bg);
+            border: 1px solid var(--border);
+            border-radius: 3px;
+            color: var(--muted);
+            font-size: 0.9rem;
+            cursor: pointer;
+            display: none;
+            align-items: center;
+            justify-content: center;
+            z-index: 400;
+            transition: color 0.2s, border-color 0.2s;
+        }
+        #back-to-top:hover { color: var(--text); border-color: var(--text); }
+        #back-to-top.visible { display: flex; }
+
+        /* FADE UP */
+        .fade-up { opacity: 0; transform: translateY(18px); transition: opacity 0.6s ease, transform 0.6s ease; }
+        .fade-up.visible { opacity: 1; transform: translateY(0); }
+
+        @media (max-width: 900px) {
+            nav { padding: 1rem 1.5rem; }
+            #hero, section { padding-left: 1.5rem; padding-right: 1.5rem; }
+            .about-layout, .contact-layout { grid-template-columns: 1fr; gap: 2.5rem; }
+            .project-row { grid-template-columns: 1fr; gap: 1.5rem; }
+            .project-img-wrap { max-width: 380px; }
+            .skills-table { grid-template-columns: 1fr; }
+            .skill-row:nth-child(odd) { padding-right: 0; border-right: none; }
+            .skill-row:nth-child(even) { padding-left: 0; }
+            footer { flex-direction: column; gap: 0.8rem; padding: 1.5rem; text-align: center; }
+        }
+    </style>
+</head>
+<body>
+
+    <nav>
+        <div class="nav-logo">yk — 2025</div>
+        <div class="nav-right">
+            <ul class="nav-links">
+                <li><a href="#about">À propos</a></li>
+                <li><a href="#projects">Projets</a></li>
+                <li><a href="#skills">Compétences</a></li>
+                <li><a href="#contact">Contact</a></li>
+            </ul>
+            <button class="theme-btn" id="themeToggle">dark</button>
+        </div>
+    </nav>
+
+    <!-- HERO -->
+    <section id="hero">
+        <div class="hero-eyebrow">Étudiant en informatique — France</div>
+        <h1 class="hero-name">
+            Kerbadou<br>
+            <em>Yacine</em>
+        </h1>
+        <div class="hero-bottom">
+            <p class="hero-desc">Développement logiciel, architecture orientée objet, et interfaces web. Passionné par des projets qui posent de vrais problèmes techniques.</p>
+            <div class="hero-links">
+                <a href="#projects" class="btn btn-dark">Projets</a>
+                <a href="#contact" class="btn btn-outline">Contact</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- ABOUT -->
+    <section id="about">
+        <div class="section-label">01 — À propos</div>
+        <div class="about-layout fade-up">
+            <div class="about-text">
+                <p>Je m'appelle Yacine Kerbadou, étudiant en informatique motivé et curieux, passionné par le développement logiciel et les technologies émergentes.</p>
+                <p>Je cherche continuellement à approfondir mes connaissances techniques à travers des projets pratiques. Je m'intéresse particulièrement à la résolution de problèmes et aux pratiques d'architecture logicielle.</p>
+                <div class="about-meta">
+                    <div>
+                        <div class="meta-label">Statut</div>
+                        <div class="meta-val">Disponible</div>
+                    </div>
+                    <div>
+                        <div class="meta-label">Localisation</div>
+                        <div class="meta-val">France</div>
+                    </div>
+                    <div>
+                        <div class="meta-label">Langages principaux</div>
+                        <div class="meta-val">C++, Java, JS</div>
+                    </div>
+                    <div>
+                        <div class="meta-label">GitHub</div>
+                        <div class="meta-val"><a href="https://github.com/Kyr1n13" target="_blank" style="color:var(--accent);text-decoration:none;">Kyr1n13</a></div>
+                    </div>
+                </div>
+            </div>
+            <div class="about-side">
+                <p>Je maîtrise plusieurs langages de programmation et m'intéresse aussi bien au bas niveau (C++, gestion mémoire, librairies graphiques) qu'au développement web moderne avec React et JavaScript.</p>
+                <p>Mon parcours m'a amené à travailler en équipe sur des projets ambitieux, à appliquer des méthodes agiles, et à m'initier aux bases de données relationnelles avec PostgreSQL et SQL.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- PROJECTS -->
+    <section id="projects">
+        <div class="section-label">02 — Projets</div>
+        <div class="projects-list">
+
+            <div class="project-row fade-up">
+                <div class="project-img-wrap">
+                    <div class="carousel-imgs" data-carousel="0">
+                        <img src="jeu1.png" alt="Rerail" class="active">
+                        <img src="jeu2.png" alt="Rerail gameplay">
+                        <img src="jeu3.png" alt="Rerail level">
+                    </div>
+                    <div class="carousel-dots" data-for="0">
+                        <div class="carousel-dot active" data-idx="0"></div>
+                        <div class="carousel-dot" data-idx="1"></div>
+                        <div class="carousel-dot" data-idx="2"></div>
+                    </div>
+                </div>
+                <div class="project-info">
+                    <div class="project-meta">
+                        <span class="project-year">2024</span>
+                        <span class="project-type-badge">Jeu 2D</span>
+                    </div>
+                    <div class="project-name">Rerail</div>
+                    <p class="project-desc">Jeu de gestion de rails avec des contraintes mathématiques sophistiquées. Développé en C++ avec des librairies graphiques, en appliquant des méthodes agiles au sein d'une équipe.</p>
+                    <div class="project-tags">
+                        <span class="tag">C++</span>
+                        <span class="tag">Librairies graphiques</span>
+                        <span class="tag">Agile</span>
+                        <span class="tag">Algorithmique</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="project-row fade-up" style="transition-delay:0.08s">
+                <div class="project-img-wrap">
+                    <img class="single-img" src="imma.png" alt="Gestionnaire immatriculations">
+                </div>
+                <div class="project-info">
+                    <div class="project-meta">
+                        <span class="project-year">2024</span>
+                        <span class="project-type-badge">Application desktop</span>
+                    </div>
+                    <div class="project-name">Gestion d'immatriculations</div>
+                    <p class="project-desc">Logiciel de gestion de plaques d'immatriculation avec interface Qt. Travail en équipe, programmation orientée objet en C++, et gestion d'une architecture de classes complexe.</p>
+                    <div class="project-tags">
+                        <span class="tag">C++</span>
+                        <span class="tag">Qt</span>
+                        <span class="tag">POO</span>
+                        <span class="tag">SQL</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="project-row fade-up" style="transition-delay:0.16s">
+                <div class="project-img-wrap">
+                    <div class="carousel-imgs" data-carousel="1">
+                        <img src="game1.png" alt="Roblox Game" class="active">
+                        <img src="game2.png" alt="Roblox Game 2">
+                        <img src="game3.png" alt="Roblox Game 3">
+                    </div>
+                    <div class="carousel-dots" data-for="1">
+                        <div class="carousel-dot active" data-idx="0"></div>
+                        <div class="carousel-dot" data-idx="1"></div>
+                        <div class="carousel-dot" data-idx="2"></div>
+                    </div>
+                </div>
+                <div class="project-info">
+                    <div class="project-meta">
+                        <span class="project-year">2023</span>
+                        <span class="project-type-badge">Jeu Roblox</span>
+                    </div>
+                    <div class="project-name">Inazuma Eleven Fan Game</div>
+                    <p class="project-desc">Recréation d'un univers Inazuma Eleven dans Roblox Studio. Scripting Lua avancé, design d'environnements 3D, et développement de systèmes de jeu complets.</p>
+                    <div class="project-tags">
+                        <span class="tag">Lua</span>
+                        <span class="tag">Roblox Studio</span>
+                        <span class="tag">Game design</span>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </section>
+
+    <!-- SKILLS -->
+    <section id="skills">
+        <div class="section-label">03 — Compétences</div>
+        <div class="skills-table fade-up">
+            <div class="skill-row">
+                <span class="skill-name">C++</span>
+                <div class="skill-bar-wrap"><div class="skill-fill" style="--w:0.8"></div></div>
+                <span class="skill-pct">80%</span>
+            </div>
+            <div class="skill-row">
+                <span class="skill-name">React</span>
+                <div class="skill-bar-wrap"><div class="skill-fill" style="--w:0.75"></div></div>
+                <span class="skill-pct">75%</span>
+            </div>
+            <div class="skill-row">
+                <span class="skill-name">JavaScript</span>
+                <div class="skill-bar-wrap"><div class="skill-fill" style="--w:0.7"></div></div>
+                <span class="skill-pct">70%</span>
+            </div>
+            <div class="skill-row">
+                <span class="skill-name">PostgreSQL</span>
+                <div class="skill-bar-wrap"><div class="skill-fill" style="--w:0.65"></div></div>
+                <span class="skill-pct">65%</span>
+            </div>
+            <div class="skill-row">
+                <span class="skill-name">Java</span>
+                <div class="skill-bar-wrap"><div class="skill-fill" style="--w:0.6"></div></div>
+                <span class="skill-pct">60%</span>
+            </div>
+            <div class="skill-row">
+                <span class="skill-name">Lua</span>
+                <div class="skill-bar-wrap"><div class="skill-fill" style="--w:0.5"></div></div>
+                <span class="skill-pct">50%</span>
+            </div>
+        </div>
+    </section>
+
+    <!-- CONTACT -->
+    <section id="contact">
+        <div class="section-label">04 — Contact</div>
+        <div class="contact-layout fade-up">
+            <div class="contact-left">
+                <h2>Travaillons<br><em>ensemble.</em></h2>
+                <p>Ouvert aux opportunités de stage, projets collaboratifs et nouvelles aventures techniques.</p>
+            </div>
+            <div class="contact-links">
+                <a href="mailto:yacinekerbadou@gmail.com" class="contact-link">
+                    <svg viewBox="0 0 24 24"><path d="M20 4H4a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V6a2 2 0 0 0-2-2zm0 4-8 5-8-5V6l8 5 8-5v2z"/></svg>
+                    <span class="cl-label">Email</span>
+                    yacinekerbadou@gmail.com
+                    <span class="cl-arrow">→</span>
+                </a>
+                <a href="tel:+33602483788" class="contact-link">
+                    <svg viewBox="0 0 24 24"><path d="M6.6 10.8c1.4 2.8 3.8 5.1 6.6 6.6l2.2-2.2c.3-.3.7-.4 1-.2 1.1.4 2.3.6 3.6.6.6 0 1 .4 1 1V20c0 .6-.4 1-1 1C10.6 21 3 13.4 3 4c0-.6.4-1 1-1h3.5c.6 0 1 .4 1 1 0 1.3.2 2.5.6 3.6.1.3 0 .7-.2 1L6.6 10.8z"/></svg>
+                    <span class="cl-label">Téléphone</span>
+                    +33 6 02 48 37 88
+                    <span class="cl-arrow">→</span>
+                </a>
+                <a href="https://github.com/Kyr1n13" target="_blank" class="contact-link">
+                    <svg viewBox="0 0 24 24"><path d="M12 2A10 10 0 0 0 2 12c0 4.4 2.9 8.2 6.8 9.5.5.1.7-.2.7-.5v-1.7C6.7 19.9 6.1 18 6.1 18c-.5-1.1-1.1-1.4-1.1-1.4-.9-.6.1-.6.1-.6 1 .1 1.5 1 1.5 1 .9 1.5 2.3 1.1 2.8.8.1-.6.3-1.1.6-1.3-2.2-.3-4.5-1.1-4.5-4.8 0-1.1.4-1.9 1-2.6-.1-.3-.4-1.2.1-2.5 0 0 .8-.3 2.7 1a9.4 9.4 0 0 1 5 0c1.9-1.3 2.7-1 2.7-1 .5 1.3.2 2.2.1 2.5.6.7 1 1.5 1 2.6 0 3.7-2.3 4.5-4.5 4.8.4.3.7.9.7 1.9V21c0 .3.2.6.7.5A10 10 0 0 0 22 12 10 10 0 0 0 12 2z"/></svg>
+                    <span class="cl-label">GitHub</span>
+                    Kyr1n13
+                    <span class="cl-arrow">→</span>
+                </a>
+                <a href="https://www.linkedin.com/in/yacine-kerbadou-55a473253/" target="_blank" class="contact-link">
+                    <svg viewBox="0 0 24 24"><path d="M19 3a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h14m-.5 15.5v-5.3a3.26 3.26 0 0 0-3.26-3.26c-.85 0-1.84.52-2.32 1.3v-1.11h-2.79v8.37h2.79v-4.93c0-.77.62-1.4 1.39-1.4a1.4 1.4 0 0 1 1.4 1.4v4.93h2.79M6.88 8.56a1.68 1.68 0 0 0 1.68-1.68c0-.93-.75-1.69-1.68-1.69a1.69 1.69 0 0 0-1.69 1.69c0 .93.76 1.68 1.69 1.68m1.39 9.94v-8.37H5.5v8.37h2.77z"/></svg>
+                    <span class="cl-label">LinkedIn</span>
+                    Yacine Kerbadou
+                    <span class="cl-arrow">→</span>
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <p class="footer-text">© 2025 Yacine Kerbadou</p>
+        <div class="footer-links">
+            <a href="https://github.com/Kyr1n13" target="_blank">GitHub</a>
+            <a href="https://www.linkedin.com/in/yacine-kerbadou-55a473253/" target="_blank">LinkedIn</a>
+        </div>
+    </footer>
+
+    <button id="back-to-top">↑</button>
+
+    <script>
+        // Theme toggle
+        const themeBtn = document.getElementById('themeToggle');
+        themeBtn.addEventListener('click', () => {
+            const isDark = document.documentElement.dataset.theme === 'dark';
+            document.documentElement.dataset.theme = isDark ? 'light' : 'dark';
+            themeBtn.textContent = isDark ? 'dark' : 'light';
+        });
+
+        // Fade up
+        const obs = new IntersectionObserver(entries => {
+            entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); obs.unobserve(e.target); } });
+        }, { threshold: 0.1 });
+        document.querySelectorAll('.fade-up').forEach(el => obs.observe(el));
+
+        // Skills animation
+        const skillObs = new IntersectionObserver(entries => {
+            entries.forEach(e => {
+                if (e.isIntersecting) {
+                    e.target.querySelectorAll('.skill-fill').forEach(fill => {
+                        fill.style.width = (parseFloat(fill.style.getPropertyValue('--w')) * 100) + '%';
+                        setTimeout(() => fill.classList.add('animated'), 100);
+                    });
+                    skillObs.unobserve(e.target);
+                }
+            });
+        }, { threshold: 0.2 });
+        document.querySelectorAll('.skills-table').forEach(el => skillObs.observe(el));
+
+        // Carousels
+        const carousels = {};
+        document.querySelectorAll('.carousel-imgs').forEach(c => {
+            const id = c.dataset.carousel;
+            const imgs = c.querySelectorAll('img');
+            carousels[id] = { imgs, current: 0 };
+            setInterval(() => {
+                const car = carousels[id];
+                car.imgs[car.current].classList.remove('active');
+                car.current = (car.current + 1) % car.imgs.length;
+                car.imgs[car.current].classList.add('active');
+                document.querySelectorAll(`.carousel-dots[data-for="${id}"] .carousel-dot`)
+                    .forEach((d, i) => d.classList.toggle('active', i === car.current));
+            }, 3200);
+        });
+        document.querySelectorAll('.carousel-dot').forEach(dot => {
+            dot.addEventListener('click', () => {
+                const id = dot.closest('.carousel-dots').dataset.for;
+                const idx = parseInt(dot.dataset.idx);
+                const car = carousels[id];
+                car.imgs[car.current].classList.remove('active');
+                car.current = idx;
+                car.imgs[idx].classList.add('active');
+                document.querySelectorAll(`.carousel-dots[data-for="${id}"] .carousel-dot`)
+                    .forEach((d, i) => d.classList.toggle('active', i === idx));
+            });
+        });
+
+        // Back to top
+        const btt = document.getElementById('back-to-top');
+        window.addEventListener('scroll', () => btt.classList.toggle('visible', window.scrollY > 400));
+        btt.addEventListener('click', () => window.scrollTo({ top: 0, behavior: 'smooth' }));
+    </script>
+</body>
+</html>
