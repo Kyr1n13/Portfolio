@@ -1,0 +1,225 @@
+
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Source+Sans+3:wght@300;400;600&display=swap');
+
+.poster { font-family: 'Source Sans 3', sans-serif; max-width: 900px; margin: 0 auto; color: #1a1a2e; }
+
+.poster-header {
+  background: #1a3a5c; color: white;
+  padding: 2rem 2.5rem 1.5rem;
+  position: relative; overflow: hidden;
+}
+.poster-header::before {
+  content: ''; position: absolute; top: -40px; right: -40px;
+  width: 200px; height: 200px;
+  background: radial-gradient(circle, rgba(230,185,40,0.25) 0%, transparent 70%);
+  border-radius: 50%;
+}
+.org-tag { font-size: 11px; letter-spacing: 0.15em; text-transform: uppercase; color: #e6b928; font-weight: 600; margin-bottom: 0.5rem; }
+.poster-title { font-family: 'Playfair Display', serif; font-size: 2.4rem; font-weight: 700; line-height: 1.15; margin: 0 0 0.5rem; color: #ffffff; }
+.poster-subtitle { font-size: 1.05rem; color: rgba(255,255,255,0.75); font-weight: 300; margin: 0 0 1.5rem; }
+.meta-row { display: flex; gap: 2rem; flex-wrap: wrap; }
+.meta-item { display: flex; align-items: center; gap: 6px; font-size: 13px; color: rgba(255,255,255,0.85); }
+.meta-dot { width: 6px; height: 6px; border-radius: 50%; background: #e6b928; flex-shrink: 0; }
+
+.poster-body { background: #f7f5f0; padding: 2rem 2.5rem; display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem; }
+
+.section { background: white; border-radius: 4px; padding: 1.25rem 1.5rem; border-left: 3px solid #1a3a5c; }
+.section.accent-green { border-left-color: #2d7a4a; }
+.section.accent-gold { border-left-color: #c49a14; }
+.section.accent-coral { border-left-color: #b84a2a; }
+.section.accent-python { border-left-color: #3776ab; }
+.col-span-2 { grid-column: 1 / -1; }
+
+.section-title { font-family: 'Playfair Display', serif; font-size: 0.9rem; font-weight: 700; letter-spacing: 0.05em; text-transform: uppercase; color: #1a3a5c; margin: 0 0 0.75rem; padding-bottom: 0.4rem; border-bottom: 0.5px solid #e0ddd5; }
+.section.accent-green .section-title { color: #2d7a4a; }
+.section.accent-gold .section-title { color: #c49a14; }
+.section.accent-coral .section-title { color: #b84a2a; }
+.section.accent-python .section-title { color: #3776ab; }
+
+.person-row { display: flex; align-items: flex-start; gap: 10px; margin-bottom: 0.7rem; }
+.person-row:last-child { margin-bottom: 0; }
+.avatar { width: 36px; height: 36px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 11px; font-weight: 600; flex-shrink: 0; }
+.avatar.blue { background: #dce8f5; color: #1a3a5c; }
+.avatar.green { background: #ddf0e5; color: #2d7a4a; }
+.person-info .name { font-size: 13px; font-weight: 600; color: #1a1a2e; }
+.person-info .role { font-size: 11.5px; color: #777; line-height: 1.4; }
+
+.tag { display: inline-block; font-size: 11px; background: #e8f0f8; color: #1a3a5c; padding: 2px 8px; border-radius: 2px; margin: 2px 2px 2px 0; font-weight: 600; }
+.tag.green { background: #e2f0e7; color: #2d7a4a; }
+.tag.gold { background: #faf0d0; color: #8a6a00; }
+.tag.python { background: #e8f2fb; color: #3776ab; }
+.tag.opt { background: #f0ede6; color: #888; font-weight: 400; font-style: italic; }
+
+.mission-center {
+  background: #1a3a5c; color: white;
+  border-radius: 4px; padding: 1.5rem 1.75rem;
+  text-align: center; position: relative;
+}
+.mission-center .badge {
+  display: inline-block; background: #e6b928; color: #1a1a2e;
+  font-size: 10px; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase;
+  padding: 3px 10px; border-radius: 2px; margin-bottom: 0.75rem;
+}
+.mission-center h3 { font-family: 'Playfair Display', serif; font-size: 1.2rem; color: white; margin: 0 0 0.4rem; }
+.mission-center p { font-size: 12.5px; color: rgba(255,255,255,0.75); margin: 0 0 1rem; line-height: 1.6; }
+
+.mission-side { background: white; border-radius: 4px; padding: 1.1rem 1.25rem; }
+.mission-side + .mission-side { margin-top: 0.75rem; }
+.mission-side .m-header { display: flex; align-items: center; gap: 8px; margin-bottom: 0.4rem; }
+.mission-side .m-num { width: 20px; height: 20px; border-radius: 50%; background: #e0ddd5; color: #888; font-size: 11px; font-weight: 600; display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
+.mission-side .m-title { font-size: 13px; font-weight: 600; color: #444; }
+.mission-side .m-body { font-size: 12px; color: #777; line-height: 1.5; padding-left: 28px; }
+.opt-label { font-size: 10px; color: #aaa; font-style: italic; font-weight: 400; margin-left: 4px; }
+
+.missions-layout { display: grid; grid-template-columns: 1fr 1.6fr 1fr; gap: 1rem; align-items: stretch; }
+
+.skills-cols { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
+.skills-list { list-style: none; margin: 0; padding: 0; }
+.skills-list li { font-size: 12px; color: #333; padding: 3px 0; border-bottom: 0.5px solid #f0ede6; display: flex; align-items: flex-start; gap: 6px; }
+.skills-list li::before { content: '›'; color: #1a3a5c; font-weight: 700; font-size: 14px; line-height: 1.2; flex-shrink: 0; }
+
+.footer-bar { background: #1a3a5c; color: rgba(255,255,255,0.7); padding: 0.8rem 2.5rem; font-size: 11.5px; display: flex; justify-content: space-between; align-items: center; }
+.footer-bar span { color: #e6b928; font-weight: 600; }
+</style>
+
+<div class="poster">
+
+  <div class="poster-header">
+    <div class="org-tag">La Couverture Verte — Association d'artistes plasticiens</div>
+    <h1 class="poster-title">Stage Informatique & Réseaux R&D</h1>
+    <p class="poster-subtitle">Développements numériques au service de l'art, de l'écologie et de l'économie sociale</p>
+    <div class="meta-row">
+      <div class="meta-item"><div class="meta-dot"></div> 23 mars — 26 juin 2026 (14 semaines)</div>
+      <div class="meta-item"><div class="meta-dot"></div> L'Atelier des Suisses, Arles</div>
+      <div class="meta-item"><div class="meta-dot"></div> IUT Informatique — 3e année</div>
+      <div class="meta-item"><div class="meta-dot"></div> Télétravail partiel (mardis)</div>
+    </div>
+  </div>
+
+  <div class="poster-body">
+
+    <div class="section">
+      <div class="section-title">Contexte & Objectifs</div>
+      <p style="font-size:12.5px; color:#444; line-height:1.6; margin:0 0 0.8rem;">
+        Stage R&D au sein de La Couverture Verte, une association d'artistes plasticiens basée à Arles. Le stagiaire contribue à la transformation numérique de l'association en développant des outils de reconnaissance d'œuvres d'art, en administrant le site web et en soutenant les ateliers artistiques.
+      </p>
+      <p style="font-size:12.5px; color:#444; line-height:1.6; margin:0;">
+        Projet central : intégration d'un outil Python de <strong style="color:#3776ab">reconnaissance automatique de tableaux de Van Gogh</strong>, pour les photos enregistrées depuis juin 2025.
+      </p>
+    </div>
+
+    <div class="section accent-green">
+      <div class="section-title">Encadrement</div>
+      <div class="person-row">
+        <div class="avatar blue">KD</div>
+        <div class="person-info">
+          <div class="name">Khalifa Diallo</div>
+          <div class="role">Tuteur principal · Chargé de missions R&D<br>Encadrement technique présentiel / distanciel<br>2h/semaine (+ 2h supp. les 3 premières semaines)</div>
+        </div>
+      </div>
+      <div class="person-row">
+        <div class="avatar green">PM</div>
+        <div class="person-info">
+          <div class="name">Philippe Monnier</div>
+          <div class="role">Responsable sur site · L'Atelier des Suisses<br>Lien quasi-quotidien avec le stagiaire<br>Coordination générale du projet</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="section col-span-2 accent-python" style="padding-bottom:1.5rem;">
+      <div class="section-title">Missions</div>
+      <div class="missions-layout">
+
+        <div>
+          <div class="mission-side">
+            <div class="m-header"><div class="m-num">A</div><div class="m-title">Administration WordPress <span class="opt-label">secondaire</span></div></div>
+            <div class="m-body">Gestion du contenu, maintenance, plugins, hébergement. Robustesse des scripts PHP & JS existants.</div>
+            <div style="padding-left:28px; margin-top:5px;"><span class="tag">PHP</span><span class="tag">MySQL</span><span class="tag">WordPress</span></div>
+          </div>
+          <div class="mission-side" style="margin-top:0.75rem;">
+            <div class="m-header"><div class="m-num">B</div><div class="m-title">Bases de données <span class="opt-label">secondaire</span></div></div>
+            <div class="m-body">Requêtes, mises à jour, optimisation. Sécurisation et gestion des sauvegardes.</div>
+            <div style="padding-left:28px; margin-top:5px;"><span class="tag">SQL</span><span class="tag">Scripts PHP</span></div>
+          </div>
+        </div>
+
+        <div class="mission-center">
+          <div class="badge">Mission centrale</div>
+          <h3>Reconnaissance automatique<br>de tableaux de Van Gogh</h3>
+          <p>Intégration d'un outil Python de reconnaissance d'image dans le site WordPress. Traitement des photos enregistrées depuis juin 2025 (projet initié en SAÉ sept. 2025 – fév. 2026).</p>
+          <div style="margin-top:8px;">
+            <span class="tag python">Python</span>
+            <span class="tag python">Computer Vision</span>
+            <span class="tag python">API WordPress</span>
+            <span class="tag python">Raspberry Pi</span>
+          </div>
+          <div style="margin-top:10px; padding-top:10px; border-top:0.5px solid rgba(255,255,255,0.15); font-size:11px; color:rgba(255,255,255,0.5);">
+            Démonstration en atelier via Raspberry Pi + écrans verticaux · vangoghworldwide.org
+          </div>
+        </div>
+
+        <div>
+          <div class="mission-side">
+            <div class="m-header"><div class="m-num">C</div><div class="m-title">Communication digitale <span class="opt-label">facultatif</span></div></div>
+            <div class="m-body">Newsletters Brevo, listes de diffusion, interconnexion Brevo–WordPress, réseaux sociaux.</div>
+            <div style="padding-left:28px; margin-top:5px;"><span class="tag opt">Brevo</span><span class="tag opt">Mailing</span><span class="tag opt">RGPD</span></div>
+          </div>
+          <div class="mission-side" style="margin-top:0.75rem;">
+            <div class="m-header"><div class="m-num">D</div><div class="m-title">Ergonomie & UX <span class="opt-label">facultatif</span></div></div>
+            <div class="m-body">Support ateliers, analyse UX, tests utilisateurs, inscriptions participants.</div>
+            <div style="padding-left:28px; margin-top:5px;"><span class="tag opt">UX</span><span class="tag opt">Tests utilisateurs</span></div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    <div class="section accent-gold">
+      <div class="section-title">Compétences requises</div>
+      <div class="skills-cols">
+        <div>
+          <p style="font-size:11px; font-weight:600; color:#7a5800; margin:0 0 4px; text-transform:uppercase; letter-spacing:0.05em;">Techniques</p>
+          <ul class="skills-list">
+            <li>Python & bibliothèques vision</li>
+            <li>WordPress (admin, plugins, thèmes)</li>
+            <li>PHP, MySQL, bases de données</li>
+            <li>HTML / CSS / JavaScript</li>
+            <li>Bonnes pratiques RGPD</li>
+          </ul>
+        </div>
+        <div>
+          <p style="font-size:11px; font-weight:600; color:#7a5800; margin:0 0 4px; text-transform:uppercase; letter-spacing:0.05em;">Transversales</p>
+          <ul class="skills-list">
+            <li>Autonomie & rigueur</li>
+            <li>Travail en équipe</li>
+            <li>Communication claire</li>
+            <li>Anglais opérationnel</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <div class="section accent-coral">
+      <div class="section-title">Matériel disponible</div>
+      <div style="display:flex; flex-wrap:wrap; gap:6px; margin-bottom:8px;">
+        <span class="tag" style="background:#fce8e2; color:#b84a2a;">MacBook Pro M1 32Go</span>
+        <span class="tag" style="background:#fce8e2; color:#b84a2a;">iMac G4</span>
+        <span class="tag" style="background:#fce8e2; color:#b84a2a;">2× Raspberry Pi 4 8Go</span>
+        <span class="tag" style="background:#fce8e2; color:#b84a2a;">NAS QNAP TS-431</span>
+        <span class="tag" style="background:#fce8e2; color:#b84a2a;">GoPro 6 & 7</span>
+        <span class="tag" style="background:#fce8e2; color:#b84a2a;">Stabilisateur Karma Grip</span>
+        <span class="tag" style="background:#fce8e2; color:#b84a2a;">Enregistreur Zoom H4n</span>
+      </div>
+      <p style="font-size:12px; color:#888; margin:0;">Équipement mis à disposition par La Couverture Verte</p>
+    </div>
+
+  </div>
+
+  <div class="footer-bar">
+    <div>La Couverture Verte · Association loi 1901 · N° SIRET 509 880 217 000 21</div>
+    <div><span>lacouvertureverte.fr</span> · 3 Bd des Lices, 13200 Arles</div>
+    <div>Fiche de poste · <span>26/02/2026</span></div>
+  </div>
+
+</div>
